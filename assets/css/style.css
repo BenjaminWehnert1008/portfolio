@@ -138,7 +138,14 @@ a:hover {
   min-height: 100svh;
   background: var(--paper);
   --cover: 0;
+  /* on big or zoomed-out screens the landing grows past the page width,
+     keeping roughly the proportions of a laptop screen */
+  --landing-max: max(1480px, 149vh);
 }
+@supports (height: 100svh) {
+  .landing { --landing-max: max(1480px, 149svh); }
+}
+.landing .wrap { max-width: var(--landing-max); }
 .landing-inner {
   display: flex;
   flex-direction: column;
@@ -197,10 +204,10 @@ a:hover {
   column-gap: clamp(36px, 5vw, 96px);
   padding-top: clamp(16px, 4vh, 56px);
   /* one map column: as wide as the window allows and as tall as it allows, whichever is smaller */
-  --cw: min(calc((0.56 * (min(100vw, 1480px) - 2 * var(--margin)) - 12px) / 7), calc((96vh - 250px) / 6), 118px);
+  --cw: min(calc((0.56 * (min(100vw, var(--landing-max)) - 2 * var(--margin)) - 12px) / 7), calc((96vh - 250px) / 6), 180px);
 }
 @supports (height: 100svh) {
-  .stage { --cw: min(calc((0.56 * (min(100vw, 1480px) - 2 * var(--margin)) - 12px) / 7), calc((96svh - 250px) / 6), 118px); }
+  .stage { --cw: min(calc((0.56 * (min(100vw, var(--landing-max)) - 2 * var(--margin)) - 12px) / 7), calc((96svh - 250px) / 6), 180px); }
 }
 
 .fig-left {
